@@ -111,14 +111,14 @@ export const getJobStatus = (batchId: string): Promise<GradingJob> => {
               newStatus = JobStatus.COMPLETED;
               newError = undefined;
               const results: GradingCategory[] = [
-                  { id: 'correctness', category: 'Correctness', score: Math.floor(Math.random() * 5) + 6, maxScore: 10, feedback: "Function 'calculateTotal' passed most test cases." },
-                  { id: 'style', category: 'Code Style', score: Math.floor(Math.random() * 5) + 5, maxScore: 10, feedback: "Good adherence to style guidelines." },
-                  { id: 'docs', category: 'Documentation', score: Math.floor(Math.random() * 3) + 3, maxScore: 5, feedback: "All public functions have docstrings." },
-                  { id: 'structure', category: 'Overall Structure', score: Math.floor(Math.random() * 2) + 4, maxScore: 5, feedback: "Project structure is well-organized." }
+                  { id: 'thesis', category: 'Thesis Strength', score: Math.floor(Math.random() * 2) + 4, maxScore: 5, feedback: "Thesis is clear but could be more argumentative." },
+                  { id: 'evidence', category: 'Evidence & Support', score: Math.floor(Math.random() * 5) + 6, maxScore: 10, feedback: "Good use of supporting examples in the body paragraphs." },
+                  { id: 'clarity', category: 'Clarity & Cohesion', score: Math.floor(Math.random() * 5) + 5, maxScore: 10, feedback: "Paragraphs are well-organized, but transitions could be smoother." },
+                  { id: 'grammar', category: 'Grammar & Mechanics', score: Math.floor(Math.random() * 3) + 3, maxScore: 5, feedback: "Minor punctuation errors found. Proofread for comma splices." },
               ];
 
               if (job.customInstructions) {
-                  results[0].feedback += " (Note: Custom instructions were considered during grading.)";
+                  results[0].feedback += " (Note: Custom teacher instructions were considered.)";
               }
               
               const totalScore = results.reduce((acc, r) => acc + r.score, 0);

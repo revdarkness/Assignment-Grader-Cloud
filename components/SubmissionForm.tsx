@@ -105,10 +105,10 @@ export const SubmissionForm: React.FC<SubmissionFormProps> = ({ onSubmit, isLoad
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                      <div>
                         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                            Submission File
+                            Student Assignment(s)
                         </label>
                         <div className="flex items-center gap-2 p-1 bg-slate-100 dark:bg-slate-900 rounded-lg">
-                            <SubmissionTypeButton type="zip">Batch (.zip)</SubmissionTypeButton>
+                            <SubmissionTypeButton type="zip">Class Set (.zip)</SubmissionTypeButton>
                             <SubmissionTypeButton type="image">Single Image</SubmissionTypeButton>
                         </div>
                         <div className="mt-2">
@@ -132,7 +132,7 @@ export const SubmissionForm: React.FC<SubmissionFormProps> = ({ onSubmit, isLoad
                                         accept=".zip,application/zip,application/x-zip-compressed"
                                         disabled={isLoading}
                                     />
-                                    <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">.zip file containing all assignments</p>
+                                    <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">.zip file containing all student papers</p>
                                 </>
                             )}
                             {submissionType === 'image' && (
@@ -155,7 +155,7 @@ export const SubmissionForm: React.FC<SubmissionFormProps> = ({ onSubmit, isLoad
                                         accept="image/*"
                                         disabled={isLoading}
                                     />
-                                     <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">Image of a single assignment</p>
+                                     <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">Image of a single student paper</p>
                                 </>
                             )}
                         </div>
@@ -163,7 +163,7 @@ export const SubmissionForm: React.FC<SubmissionFormProps> = ({ onSubmit, isLoad
 
                     <div>
                         <label htmlFor="solutionFile" className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-                            Solution File (Optional)
+                            Model Answer (Optional)
                         </label>
                         <div className="mt-1">
                             <input
@@ -181,7 +181,7 @@ export const SubmissionForm: React.FC<SubmissionFormProps> = ({ onSubmit, isLoad
                                 disabled={isLoading}
                             />
                         </div>
-                         <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">Reference solution for grading</p>
+                         <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">An exemplar or model text for reference</p>
                     </div>
                 </div>
 
@@ -287,11 +287,11 @@ export const SubmissionForm: React.FC<SubmissionFormProps> = ({ onSubmit, isLoad
                         rows={3}
                         value={customInstructions}
                         onChange={(e) => setCustomInstructions(e.target.value)}
-                        placeholder="e.g., 'Pay close attention to variable naming conventions.' or 'The final output must be a single integer.'"
+                        placeholder="e.g., 'Focus on thesis statement strength and use of textual evidence.' or 'Ignore spelling mistakes for this draft.'"
                         className="mt-1 block w-full rounded-md border-slate-300 dark:border-slate-600 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-200"
                         disabled={isLoading}
                     />
-                    <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">Provide specific instructions for the auto-grader and AI.</p>
+                    <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">Provide specific instructions for the AI feedback model.</p>
                 </div>
 
                 <div>
@@ -322,10 +322,10 @@ export const SubmissionForm: React.FC<SubmissionFormProps> = ({ onSubmit, isLoad
                         {isLoading ? (
                             <>
                                 <SpinnerIcon className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" />
-                                Submitting...
+                                Analyzing...
                             </>
                         ) : (
-                            'Grade Submission'
+                            'Get Feedback'
                         )}
                     </button>
                 </div>

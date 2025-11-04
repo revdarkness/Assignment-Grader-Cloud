@@ -1,5 +1,5 @@
 {
-  "name": "Temporal Auto-Grader UI",
-  "description": "A web interface for a Temporal-based auto-grading worker. Submit code for grading, track the job status, and view the results, with AI-enhanced feedback powered by Gemini.",
+  "name": "AI Feedback Assistant",
+  "description": "A web interface for teachers to get AI-powered feedback on student's written assignments. Submit documents, track grading status, and view results with feedback enhanced by Gemini.",
   "requestFramePermissions": []
 }

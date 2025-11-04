@@ -41,3 +41,8 @@ export type Rubric = {
   type: 'text' | 'file' | 'url';
   value: string | File | null;
 };
+
+export interface User {
+  name: string;
+  picture?: string;
+}

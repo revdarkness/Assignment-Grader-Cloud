@@ -25,17 +25,26 @@ export const enhanceFeedbackWithGemini = async (feedback: string, category: stri
         `
         : '';
 
-    const prompt = `You are an expert and friendly teaching assistant. Your goal is to provide constructive and encouraging feedback to a student based on an auto-grader's output for a specific category.
-    ${rubricInstruction}
-    ${customInstructionBlock}
-    Rephrase the following feedback for the **${category}** category to be more helpful, clear, and motivational.
-    - Explain *why* something is wrong, if possible.
-    - Suggest specific improvements or areas to review.
-    - Maintain a positive and supportive tone.
-    - Format your response using markdown for readability (e.g., use bullet points, bold text, and code blocks).
+    const prompt = `You are an AI teaching assistant for a secondary school teacher. Your purpose is to help the teacher provide high-quality, pedagogically-sound feedback on written assignments.
+Your tone should be encouraging, specific, and student-focused. Avoid generic praise. The goal is to empower students to improve their writing.
+${rubricInstruction}
+${customInstructionBlock}
+Based on the initial auto-grader feedback for the **'${category}'** category, please generate enhanced feedback for the student.
 
-    Original feedback:
-    "${feedback}"`;
+**Feedback Framework (Follow this structure):**
+1.  **Glow (Praise):** Start by identifying a specific strength in the student's work related to this category. Be precise. (e.g., "Your topic sentence in the third paragraph is particularly effective because it clearly introduces the main idea.")
+2.  **Grow (Constructive Suggestion):** Gently guide the student toward an area for improvement. Frame it as a question or a "next step" to encourage critical thinking, rather than a direct command. (e.g., "How might you connect this evidence back to your main thesis more explicitly?" or "For your next draft, consider how you might combine these two shorter sentences for a more powerful impact.")
+3.  **Actionable Tip (Optional but Recommended):** Provide a concrete, actionable piece of advice or a resource. (e.g., "Try reading this section aloud to catch awkward phrasing." or "Here's a great resource on writing compelling thesis statements.")
+
+**Formatting:**
+- Use markdown for clarity (bolding, bullet points).
+- Keep paragraphs short and easy to read.
+- Address the student directly in a supportive manner.
+
+**Original Auto-Grader Feedback:**
+"${feedback}"
+
+Now, generate the enhanced, student-facing feedback based on all the instructions above.`;
 
     try {
         const response = await ai.models.generateContent({

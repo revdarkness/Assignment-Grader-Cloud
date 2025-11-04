@@ -4,13 +4,16 @@ import { SubmissionForm } from './components/SubmissionForm';
 import { JobStatusCard } from './components/JobStatusCard';
 import { startGrading, getJobStatus, FileData } from './services/gradingService';
 import { enhanceFeedbackWithGemini } from './services/geminiService';
-import { GradingJob, JobStatus, Rubric, Assignment } from './types';
+import { GradingJob, JobStatus, Rubric, Assignment, User } from './types';
 import { LoginScreen } from './components/LoginScreen';
+import { UserCircleIcon } from './components/icons/UserCircleIcon';
 
 // TODO:
 // - Securing API endpoints to be user-specific would require a backend implementation.
 
 declare const JSZip: any;
+declare const window: any;
+
 
 const getFileAsText = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
@@ -29,7 +32,7 @@ const App: React.FC = () => {
     const [rubricContent, setRubricContent] = useState<string | null>(null);
     const [customInstructions, setCustomInstructions] = useState<string | null>(null);
     const [submissionCount, setSubmissionCount] = useState(0);
-    const [currentUser, setCurrentUser] = useState<{ name: string } | null>(null);
+    const [currentUser, setCurrentUser] = useState<User | null>(null);
     const pollingIntervalRef = useRef<number | null>(null);
 
     const stopPolling = useCallback(() => {
@@ -39,12 +42,15 @@ const App: React.FC = () => {
         }
     }, []);
     
-    const handleLogin = () => {
-        setCurrentUser({ name: 'Teacher' });
+    const handleLogin = (user: User) => {
+        setCurrentUser(user);
     };
 
     const handleLogout = () => {
         stopPolling();
+        if (window.google) {
+            window.google.accounts.id.disableAutoSelect();
+        }
         setCurrentUser(null);
         setJob(null);
         setSubmissionCount(0);
@@ -204,19 +210,26 @@ const App: React.FC = () => {
                 <div className="relative text-center">
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-x-4 gap-y-2">
                         <h1 className="text-4xl sm:text-5xl font-bold text-slate-800 dark:text-white tracking-tight">
-                            Temporal Auto-Grader
+                            AI Feedback Assistant
                         </h1>
                         {submissionCount > 0 && (
                              <span className="bg-sky-100 dark:bg-sky-900 text-sky-600 dark:text-sky-300 text-sm font-semibold px-3 py-1 rounded-full">
-                                {submissionCount} {submissionCount === 1 ? 'Job' : 'Jobs'} Submitted
+                                {submissionCount} {submissionCount === 1 ? 'Batch' : 'Batches'} Submitted
                             </span>
                         )}
                     </div>
                     <p className="mt-2 text-lg text-slate-600 dark:text-slate-400">
-                        Submit your code for automated grading and get AI-powered feedback.
+                        Submit student work for automated feedback and AI-powered suggestions.
                     </p>
                      <div className="absolute top-0 right-0 flex items-center h-full">
                         <div className="flex items-center gap-3">
+                            {currentUser.picture ? (
+                                <img src={currentUser.picture} alt="Profile" className="h-8 w-8 rounded-full hidden sm:block" />
+                            ) : (
+                                <div className="h-8 w-8 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center hidden sm:block">
+                                    <UserCircleIcon className="h-6 w-6 text-slate-500 dark:text-slate-400" />
+                                </div>
+                            )}
                             <span className="text-sm font-medium text-slate-600 dark:text-slate-300 hidden sm:inline">Welcome, {currentUser.name}!</span>
                             <button 
                                 onClick={handleLogout}
