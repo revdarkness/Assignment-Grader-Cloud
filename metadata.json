@@ -1,0 +1,5 @@
+{
+  "name": "Temporal Auto-Grader UI",
+  "description": "A web interface for a Temporal-based auto-grading worker. Submit code for grading, track the job status, and view the results, with AI-enhanced feedback powered by Gemini.",
+  "requestFramePermissions": []
+}
